@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NNMidiCreator", "NNMidiCreator\NNMidiCreator.csproj", "{29514368-80DC-4BFA-A2FE-9F8108A51E19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MidiParser", "MidiParser\MidiParser.csproj", "{8926D026-D0E7-475E-BA47-CE3F7DBB3ED4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{29514368-80DC-4BFA-A2FE-9F8108A51E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29514368-80DC-4BFA-A2FE-9F8108A51E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29514368-80DC-4BFA-A2FE-9F8108A51E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8926D026-D0E7-475E-BA47-CE3F7DBB3ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8926D026-D0E7-475E-BA47-CE3F7DBB3ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8926D026-D0E7-475E-BA47-CE3F7DBB3ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8926D026-D0E7-475E-BA47-CE3F7DBB3ED4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
