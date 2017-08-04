@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using static MidiParser.MidiValueReader.Chunk;
 using static MidiParser.MidiValueReader;
+using System.Collections.Generic;
 
 namespace MidiParser
 {
@@ -62,23 +63,23 @@ namespace MidiParser
         {
             uint outv = 0;
 
-            byte[] nval = new byte[value.Length];
+            List<byte> nval = new List<byte>();
 
             int i = 0;
             for (bool run = true; i < value.Length && run; i++)
             {
                 var br = BitReader.GetBitReader(value[i], 8);
-                if (br[7]) run = false;
-                byte bval = (byte)(value[i] & 0x7F);
-                nval[i] = bval;
+                if (!br[7]) run = false;
+                byte bval = (byte)(value[i] & 0b01111111);
+                nval.Add(bval);
             }
 
             if (BitConverter.IsLittleEndian)
-                nval = nval.Reverse().ToArray(); // If we are an an LE system, flip the byte order (MIDI is BE)
+                nval.Reverse(); // If we are an an LE system, flip the byte order (MIDI is BE)
 
             for (int j = 0; j < i; j++)
             {
-                uint bval = (uint)value[i] & 0x7F;
+                uint bval = (uint)value[j] & 0x7F;
                 bval = bval >> (7 * j);
                 outv += bval;
             }
@@ -174,9 +175,9 @@ namespace MidiParser
             Chunk chunk = new Chunk()
             {
                 Type = type,
-                TypeE = Chunk.ChunkType.Unknown,
+                TypeE = ChunkType.Unknown,
                 Length = len,
-                Data = new Chunk.UnknownChunkData()
+                Data = new UnknownChunkData()
                 {
                     Data = data
                 }

@@ -9,7 +9,7 @@ namespace MidiParser
 {
     public class BitReader : IEnumerable<bool>, IReadOnlyList<bool>
     {
-        private static Dictionary<UInt64, BitReader> readers;
+        private static Dictionary<UInt64, BitReader> readers = new Dictionary<ulong, BitReader>();
 
         public static BitReader GetBitReader(UInt64 num, int bits)
         {
@@ -53,7 +53,7 @@ namespace MidiParser
 
         public IEnumerator<bool> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return new BitEnumerator() { self = this };
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -63,7 +63,7 @@ namespace MidiParser
 
         public class BitEnumerator : IEnumerator<bool>
         {
-            BitReader self;
+            internal BitReader self = null;
             int curi = -1;
 
             public bool Current => self.GetBit(curi);

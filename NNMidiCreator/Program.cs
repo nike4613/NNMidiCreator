@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MidiParser;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,11 @@ namespace NNMidiCreator
     {
         static void Main(string[] args)
         {
+            Stream strm = File.Open("paradise-city.mid", FileMode.Open);
+
+            var midi = new MidiFile(strm);
+
+            midi.Load();
         }
     }
 }

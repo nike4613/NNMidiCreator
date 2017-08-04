@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitReader.cs" />
+    <Compile Include="MidiFile.cs" />
     <Compile Include="MidiValueReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackEvent.cs" />
