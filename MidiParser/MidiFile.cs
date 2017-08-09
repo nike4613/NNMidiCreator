@@ -70,6 +70,11 @@ namespace MidiParser
                 Meaning = mean;
                 DeltaUnits = delta;
             }
+
+            public override string ToString()
+            {
+                return String.Format("{0} {1} ({2})", DeltaUnits, Meaning.ToString(), FramesPerSecond);
+            }
         }
 
         public MidiFormat Format { get; private set; }
@@ -81,6 +86,8 @@ namespace MidiParser
         }
 
         public ushort TrackCount { get; private set; }
+
+        public List<MidiTrack> Tracks { get; private set; }
 
         private int TwosNegative(uint num, int bits)
         {
@@ -123,6 +130,59 @@ namespace MidiParser
                 Division = new TimeDivision(TimeDivision.DivisionMeaning.UnitsPerQuarterNote,
                     header.Division);
             }
+
+            Tracks = new List<MidiTrack>();
+
+            foreach (var trk in tchunks)
+            {
+                Tracks.Add(new MidiTrack((MidiValueReader.Chunk.TrackChunkData)trk.Data));
+            }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("MidiFile {{Format={0},Division={1},Tracks={2}}}", Format.ToString(), Division, Tracks.ToString<MidiTrack>());
+        }
+
+        public string ToString(bool formatted)
+        {
+            string text = ToString();
+
+            if (formatted)
+            {
+                int indent = 0;
+
+                string ns = "";
+
+                bool linestart = true;
+
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (text[i] == ']' || text[i] == '}')
+                    {
+                        ns += "\n" + "  ".Repeat(--indent);
+                        linestart = true;
+                    }
+                    if (linestart && text[i] == ' ') continue;
+                    linestart = false;
+                    ns += text[i];
+                    if (text[i] == ',')
+                    {
+                        ns += "\n" + "  ".Repeat(indent);
+                        linestart = true;
+                    }
+                    if (text[i] == '[' || text[i] == '{')
+                    {
+                        ns += "\n" + "  ".Repeat(++indent);
+                        linestart = true;
+                    }
+
+                }
+
+                text = ns;
+            }
+
+            return text;
         }
     }
 }

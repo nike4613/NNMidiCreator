@@ -37,6 +37,12 @@ namespace MidiParser
             if (BitConverter.IsLittleEndian)
                 value = value.Reverse().ToArray(); // If we are an an LE system, flip the byte order (MIDI is BE)
 
+            if (value.Length == 3) {
+                var l = value.ToList();//.Add(0x00)
+                l.Add(0x00);
+                value = l.ToArray();
+            }
+
             uint vl = 0;
             switch(value.Length)
             {

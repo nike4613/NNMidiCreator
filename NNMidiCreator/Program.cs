@@ -17,6 +17,10 @@ namespace NNMidiCreator
             var midi = new MidiFile(strm);
 
             midi.Load();
+
+            Console.WriteLine(midi);
+
+            File.WriteAllText("tostring.txt",midi.ToString(true));
         }
     }
 }
